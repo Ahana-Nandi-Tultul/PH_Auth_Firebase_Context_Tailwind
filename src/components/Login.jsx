@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { AuthContext } from '../providers/Authproviders';
 
 const Login = () => {
-    const {login} = useContext(AuthContext);
+    const {login, googleSignIn} = useContext(AuthContext);
     const handleLogin = event => {
         event.preventDefault();
         
@@ -22,6 +22,17 @@ const Login = () => {
             console.log(error.message);
         })
     }
+
+    const handleGoogleSignin = () => {
+        googleSignIn()
+        .then(result => {
+            console.log(result.user);
+        })
+        .catch(error => {
+            console.log(error.message);
+        })
+    }
+
     return (
         <div className="hero min-h-screen bg-base-200">
             <div className="hero-content flex-col">
@@ -50,9 +61,12 @@ const Login = () => {
                     <div className="form-control mt-6">
                         <button className="btn btn-primary">Login</button>
                         </div>
-                    </form>
+                </form>
                     <div className='mb-4 ml-8'>
                         <Link to="/register" className="label-text-alt link link-hover">New at Auth-Firebase-Context-Tailwind</Link>
+                    </div>
+                    <div>
+                        <button onClick={handleGoogleSignin} className="btn btn-primary">Google</button>
                     </div>
                 </div>
             </div>
